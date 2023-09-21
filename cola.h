@@ -297,8 +297,16 @@ float cola::evaluar(pnodo raiz) {
 
     // Si el nodo es un número, convierte su valor a entero y devuélvelo.
     if (raiz->valor == "+" || raiz->valor == "-" || raiz->valor == "*" || raiz->valor == "/" || raiz->valor == "^") {
+<<<<<<< HEAD
         float hIzq = evaluar(raiz->hIzq);
         float hDer = evaluar(raiz->hDer);
+=======
+    	
+        float hIzq = evaluateExpression(raiz->hIzq);
+        float hDer = evaluateExpression(raiz->hDer);
+>>>>>>> 8f3b72f69b92ad24b76c212d7263314d6e5af56e
+        
+        cout<<endl<<hIzq<<" "<<raiz->valor<<" "<<hDer<<endl;
         
         // Realiza la operación correspondiente según el operador en el nodo actual.
         if (raiz->valor == "+") {
