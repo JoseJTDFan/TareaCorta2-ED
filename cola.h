@@ -1,8 +1,8 @@
 /*
-TAREA CORTA 1 - ESTRUCTURAS DE DATOS
+TAREA CORTA 2 - ESTRUCTURAS DE DATOS
 Prof: Ivannia Cerdas
 Autores: Jose Julian Brenes Garro y Gustavo Pacheco Morales
-Fecha de Entrega: 24/08/2023
+Fecha de Entrega: 21/09/2023
 */
 
 #pragma once
@@ -21,6 +21,7 @@ class cola {
     private:
         int frente;
         int fondo;
+        int num_arch = 1;
         pnodo Cola [5];
 
     public:
@@ -42,8 +43,9 @@ class cola {
         void prefijo(pnodo raiz);
         void infijo(pnodo raiz);
         void postfijo(pnodo raiz);
-        float evaluateExpression(pnodo raiz);
+        float evaluar(pnodo raiz);
         float power(float num1, float num2);
+        void guardarEnArchivo(string nombreArchivo, string texto);
     friend class pila;
 };
 
@@ -188,12 +190,26 @@ void cola::postfijo(pnodo raiz) {
     }
 }
 
+void cola::guardarEnArchivo(string nombreArchivo, string texto){
+	ofstream archivo(nombreArchivo);
+    if (!archivo.is_open()) {
+        //cerr << "No se pudo abrir el archivo: " << nombreArchivo << endl;
+        return;
+    }
+    archivo << texto;
+    archivo.close();
+}
+
 pnodo cola:: ordenarArbol(nodo* primero){
 
     pila pilaoperadores;
     pila pilaexpresiones;
     pnodo aux = primero;
     string elemento;
+    string comparacion = "";
+    string nombre = "Archivo_" + to_string(num_arch) +  "_Evaluacion.txt";
+    
+    num_arch++;
 
     while(aux){
     	pnodo tempOperador, HDer, HIzq;
@@ -206,6 +222,7 @@ pnodo cola:: ordenarArbol(nodo* primero){
                 	
                     temp = pilaoperadores.pop();
                     if (temp->valor != "("){
+                    	//comparacion += "Dentro: " + pilaoperadores.getultimo() + "Fuera: " + aux->valor + " \n";
 						tempOperador = temp;
 						HDer = pilaexpresiones.pop();
 						HIzq = pilaexpresiones.pop();
@@ -219,9 +236,13 @@ pnodo cola:: ordenarArbol(nodo* primero){
         		pilaoperadores.push(aux);
 			}
 			else if(getvalor(aux->valor,false) > getvalor(pilaoperadores.getultimo(),true)){
+				comparacion += "Dentro: " + pilaoperadores.getultimo() + "Fuera: " + aux->valor + " \n";
+				//cout << comparacion << endl;
 				pilaoperadores.push(aux);
 			}
 			else if(getvalor(aux->valor,false) <= getvalor(pilaoperadores.getultimo(),true)){
+				comparacion += "Dentro: " + pilaoperadores.getultimo() + "Fuera: " + aux->valor + " \n";
+				//cout << comparacion << endl;
 				tempOperador = pilaoperadores.pop();
 				HDer = pilaexpresiones.pop();
 				HIzq = pilaexpresiones.pop();
@@ -229,11 +250,14 @@ pnodo cola:: ordenarArbol(nodo* primero){
 				tempOperador->hIzq = HIzq;
 				pilaexpresiones.push(tempOperador);
 				pilaoperadores.push(aux);
+
 			}
         }
         
         if(aux->siguiente_Cola==NULL){
 		 		while(!pilaoperadores.pilaVacia()){
+		 			comparacion += "Dentro: " + pilaoperadores.getultimo() + "Fuera: " + aux->valor + " \n";
+					//cout << comparacion << endl;
 					tempOperador = pilaoperadores.pop();
 					HDer = pilaexpresiones.pop();
 					HIzq = pilaexpresiones.pop();
@@ -246,6 +270,7 @@ pnodo cola:: ordenarArbol(nodo* primero){
         aux = aux->siguiente_Cola;
     }
     pnodo arbol = pilaexpresiones.pop();
+    guardarEnArchivo(nombre,comparacion);
 
     return arbol;
 }
@@ -264,7 +289,7 @@ float cola::power(float num1, float num2){
 }
 
 
-float cola::evaluateExpression(pnodo raiz) {
+float cola::evaluar(pnodo raiz) {
     if (!raiz) {
         // Si el nodo es nulo, devuelve 0 (puede ser un caso base en la recursión).
         return 0;
@@ -272,8 +297,8 @@ float cola::evaluateExpression(pnodo raiz) {
 
     // Si el nodo es un número, convierte su valor a entero y devuélvelo.
     if (raiz->valor == "+" || raiz->valor == "-" || raiz->valor == "*" || raiz->valor == "/" || raiz->valor == "^") {
-        float hIzq = evaluateExpression(raiz->hIzq);
-        float hDer = evaluateExpression(raiz->hDer);
+        float hIzq = evaluar(raiz->hIzq);
+        float hDer = evaluar(raiz->hDer);
         
         // Realiza la operación correspondiente según el operador en el nodo actual.
         if (raiz->valor == "+") {

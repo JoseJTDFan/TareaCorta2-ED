@@ -1,8 +1,8 @@
 /*
-TAREA CORTA 1 - ESTRUCTURAS DE DATOS
+TAREA CORTA 2 - ESTRUCTURAS DE DATOS
 Prof: Ivannia Cerdas
 Autores: Jose Julian Brenes Garro y Gustavo Pacheco Morales
-Fecha de Entrega: 24/08/2023
+Fecha de Entrega: 21/09/2023
 */
 
 #pragma once
