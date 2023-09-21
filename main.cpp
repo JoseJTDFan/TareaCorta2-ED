@@ -8,7 +8,7 @@ Fecha de Entrega: 21/09/2023
 #include <iostream>
 #include <string.h>
 #include <fstream>
-#include "lista.h"
+#include "arbol.h"
 #include "cola.h"
 #include <cstdlib>
 #include "nodo.h"

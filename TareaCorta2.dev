@@ -61,7 +61,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit2]
-FileName=lista.h
+FileName=arbol.h
 CompileCpp=1
 Folder=
 Compile=1

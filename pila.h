@@ -30,9 +30,10 @@ class pila {
         pnodo pop();          //borrado
         string getultimo();      //oral
         void mostrarpila();
+        string grabarpila();
     };
     
-    void pila::mostrarpila() {
+void pila::mostrarpila() {
     nodo *aux;
     if (primero == NULL)
         cout << "No hay elementos" << endl;
@@ -46,6 +47,23 @@ class pila {
         }
         cout << endl;
     }
+}
+
+string pila::grabarpila() {
+    nodo *aux;
+    string texto = "";
+    if (primero == NULL)
+        return "No hay elementos\n";
+    else {
+        aux = primero;
+        while(aux) {
+            texto = texto + aux->valor;
+            if(aux->siguiente)
+                texto = texto + " > ";
+            aux = aux->siguiente;
+        }
+    }
+    return texto + "\n";
 }
 
 void pila:: push (pnodo valor) {

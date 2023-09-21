@@ -11,7 +11,7 @@ Fecha de Entrega: 21/09/2023
 #include <fstream>
 #include "nodo.h"
 #include "pila.h"
-#include "lista.h"
+#include "arbol.h"
 #include <stdexcept>
 
 using namespace std;
@@ -209,6 +209,9 @@ pnodo cola:: ordenarArbol(nodo* primero){
     string comparacion = "Archivo_" + to_string(num_arch) + "\n\n";
     string nombre = "Archivo_" + to_string(num_arch) +  "_Evaluacion.txt";
     
+    string pilaArch = "Pila_Archivo_" + to_string(num_arch) + "\n\n";
+    string nombrePila = "Pila_Archivo_" + to_string(num_arch) +  ".txt";
+    
     comparacion += "--------------------------------------------\n";
     num_arch++;
 
@@ -230,6 +233,12 @@ pnodo cola:: ordenarArbol(nodo* primero){
 						tempOperador->hDer = HDer;
 						tempOperador->hIzq = HIzq;
 						pilaexpresiones.push(tempOperador);
+						
+						pilaArch += "Pila Operadores: ";
+					    pilaArch += pilaoperadores.grabarpila();
+					    pilaArch += "Pila Expresiones: ";
+					    pilaArch += pilaexpresiones.grabarpila();
+					    pilaArch += "\n--------------------------------------------\n\n";
 					}     
                 }
             }
@@ -265,13 +274,25 @@ pnodo cola:: ordenarArbol(nodo* primero){
 					tempOperador->hDer = HDer;
 					tempOperador->hIzq = HIzq;
 					pilaexpresiones.push(tempOperador);
+					
+					pilaArch += "Pila Operadores: ";
+				    pilaArch += pilaoperadores.grabarpila();
+				    pilaArch += "Pila Expresiones: ";
+				    pilaArch += pilaexpresiones.grabarpila();
+				    pilaArch += "\n--------------------------------------------\n\n";
 				}
             }
 
         aux = aux->siguiente_Cola;
+        pilaArch += "Pila Operadores: ";
+        pilaArch += pilaoperadores.grabarpila();
+        pilaArch += "Pila Expresiones: ";
+        pilaArch += pilaexpresiones.grabarpila();
+        pilaArch += "\n--------------------------------------------\n\n";
     }
     pnodo arbol = pilaexpresiones.pop();
     guardarEnArchivo(nombre,comparacion);
+    guardarEnArchivo(nombrePila,pilaArch);
 
     return arbol;
 }
