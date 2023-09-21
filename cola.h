@@ -206,9 +206,10 @@ pnodo cola:: ordenarArbol(nodo* primero){
     pila pilaexpresiones;
     pnodo aux = primero;
     string elemento;
-    string comparacion = "";
+    string comparacion = "Archivo_" + to_string(num_arch) + "\n\n";
     string nombre = "Archivo_" + to_string(num_arch) +  "_Evaluacion.txt";
     
+    comparacion += "--------------------------------------------\n";
     num_arch++;
 
     while(aux){
@@ -222,7 +223,7 @@ pnodo cola:: ordenarArbol(nodo* primero){
                 	
                     temp = pilaoperadores.pop();
                     if (temp->valor != "("){
-                    	//comparacion += "Dentro: " + pilaoperadores.getultimo() + "Fuera: " + aux->valor + " \n";
+                    	//comparacion += "Dentro: " + pilaoperadores.getultimo() + "  Fuera: " + aux->valor + " \n";
 						tempOperador = temp;
 						HDer = pilaexpresiones.pop();
 						HIzq = pilaexpresiones.pop();
@@ -236,12 +237,12 @@ pnodo cola:: ordenarArbol(nodo* primero){
         		pilaoperadores.push(aux);
 			}
 			else if(getvalor(aux->valor,false) > getvalor(pilaoperadores.getultimo(),true)){
-				comparacion += "Dentro: " + pilaoperadores.getultimo() + "Fuera: " + aux->valor + " \n";
+				comparacion += "Dentro: " + pilaoperadores.getultimo() + "  Fuera: " + aux->valor + " \n\n";
 				//cout << comparacion << endl;
 				pilaoperadores.push(aux);
 			}
 			else if(getvalor(aux->valor,false) <= getvalor(pilaoperadores.getultimo(),true)){
-				comparacion += "Dentro: " + pilaoperadores.getultimo() + "Fuera: " + aux->valor + " \n";
+				comparacion += "Dentro: " + pilaoperadores.getultimo() + "  Fuera: " + aux->valor + " \n\n";
 				//cout << comparacion << endl;
 				tempOperador = pilaoperadores.pop();
 				HDer = pilaexpresiones.pop();
@@ -256,7 +257,7 @@ pnodo cola:: ordenarArbol(nodo* primero){
         
         if(aux->siguiente_Cola==NULL){
 		 		while(!pilaoperadores.pilaVacia()){
-		 			comparacion += "Dentro: " + pilaoperadores.getultimo() + "Fuera: " + aux->valor + " \n";
+		 			comparacion += "Dentro: " + pilaoperadores.getultimo() + "  Fuera: " + aux->valor + " \n\n";
 					//cout << comparacion << endl;
 					tempOperador = pilaoperadores.pop();
 					HDer = pilaexpresiones.pop();
