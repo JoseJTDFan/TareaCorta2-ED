@@ -1,5 +1,5 @@
 /*
-TAREA CORTA 1 - ESTRUCTURAS DE DATOS
+TAREA CORTA 2 - ESTRUCTURAS DE DATOS
 Prof: Ivannia Cerdas
 Autores: Jose Julian Brenes Garro y Gustavo Pacheco Morales
 Fecha de Entrega: 24/08/2023
@@ -10,6 +10,8 @@ Fecha de Entrega: 24/08/2023
 #include <fstream>
 #include "lista.h"
 #include "cola.h"
+#include <cstdlib>
+#include "nodo.h"
 
 using namespace std;
 
@@ -19,12 +21,26 @@ int main(){
     */
     string archivos[] = { "Arch1.txt", "Arch2.txt", "Arch3.txt", "Arch4.txt",  "Arch5.txt"}; //archivos a usar
     cola expresiones;// Crea la cola de nodos con referencia al primer elemento de la expresión de los archivos
-    for (int i = 0; i < 5; i++)
-    {
-    expresiones.insertarexpresion(i,archivos[i]);//toma el primer nodo y crea la lista
-    lista postFijo = expresiones.postfijo(expresiones.getcola(i));// metodo para crear lista postfijo a base de primer nodo de lista
-    postFijo.evaluacion();//metodo para evaluar una lista postfijo
-    cout << endl;
+    for (int i = 0; i < 5; i++){
+    	system("cls");
+	    expresiones.insertarexpresion(i,archivos[i]);//lector de archivos
+	    cout<<endl<<"-------------------------------------------------------------------------"<<endl;
+	    pnodo arbol = expresiones.ordenarArbol(expresiones.getcola(i));//crea el arbol
+	    cout << endl << "PREFIJO:		";
+	    expresiones.prefijo(arbol);
+	    cout << endl << "INFIJO:			";
+	    expresiones.infijo(arbol);
+	    cout << endl << "POSTFIJO:		";
+	    expresiones.postfijo(arbol);
+	    cout << endl << endl << "EVALUACION:		";
+	    float result;
+	    result = expresiones.evaluateExpression(arbol);
+	    cout<<result;
+	    
+	//    postFijo.evaluacion();//metodo para evaluar una lista postfijo
+	    cout << endl << endl;
+		system("pause");
+		
     }
     return 0;
 }

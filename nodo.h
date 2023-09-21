@@ -17,16 +17,25 @@ class nodo{
         // atributos
         string valor;
         nodo *siguiente;
+        nodo * siguiente_Cola;
+        nodo *hIzq;
+        nodo *hDer;
     public:
         //constructores
         nodo(string v) {
             valor = v;
             siguiente = NULL;
+            siguiente_Cola= NULL;
+            hIzq = NULL;
+            hDer = NULL;
         }
 
         nodo(string v, nodo * signodo) {
             valor = v;
             siguiente = signodo;
+            siguiente_Cola= NULL;
+            hIzq = NULL;
+            hDer = NULL;
         }
 
         //metodos
