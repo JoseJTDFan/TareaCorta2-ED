@@ -12,6 +12,7 @@ Fecha de Entrega: 24/08/2023
 #include "nodo.h"
 #include "pila.h"
 #include "lista.h"
+#include <stdexcept>
 
 using namespace std;
 
@@ -285,8 +286,7 @@ float cola::evaluateExpression(pnodo raiz) {
             if (hDer != 0) {
                 return hIzq / hDer;
             } else {
-                cerr << "Error: Division por cero." << endl;
-                exit(1);
+			throw runtime_error("Error: Division por cero.");
             }
         } else if(raiz->valor == "^"){
         	return power(hIzq, hDer);

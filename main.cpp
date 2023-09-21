@@ -32,10 +32,14 @@ int main(){
 	    expresiones.infijo(arbol);
 	    cout << endl << "POSTFIJO:		";
 	    expresiones.postfijo(arbol);
-	    cout << endl << endl << "EVALUACION:		";
-	    float result;
-	    result = expresiones.evaluateExpression(arbol);
-	    cout<<result;
+	    try {
+		    cout << endl << endl << "EVALUACION:		";
+		    float result;
+		    result = expresiones.evaluateExpression(arbol);
+		    cout<<result;
+		} catch (const runtime_error& e) {
+        	cerr << e.what() << endl;
+    	}
 	    
 	//    postFijo.evaluacion();//metodo para evaluar una lista postfijo
 	    cout << endl << endl;
